@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Practice Page</title>
+		<link rel="stylesheet" href="css/ericmeyer.css" />
+		<link rel="stylesheet" href="css/style.css" />
+
+	</head>
+	<body>
+
+
+
+
+
+		<div id="gallery">
+
+				<a href="images/01.jpg">
+					<img src="images/thumbnails/Field-01.jpg" alt="Field">
+				</a>
+
+				<a href="images/02.jpg">
+					<img src="images/thumbnails/Lake-02.jpg" alt="Field">
+				</a>
+
+
+		</div>
+
+
+				<div id="overlay">
+					<img src="images/close.png" alt="Close button" id="close" />
+					<div class="empty"></div>
+
+					<div id="lightbox-box" class="stop">
+						<img src="images/prev.png" alt="Previous button" id="prev" class="stop"/>
+						<img src="images/next.png" alt="Next button" id="next" class="stop"/>
+						<div id="lightbox"></div>
+					</div>
+					<div class="empty"></div>
+				</div>
+
+
+
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+				 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script>
+
+				$('#gallery a').click(function(evt) {
+					//don't follow link
+					 evt.preventDefault();
+
+					 // show overlay
+					 $('#overlay').show('slide', {
+						 direction: 'left'
+					 },
+					 700,
+					 "linear");
+
+					 //get path to new image
+					 var imgPath = $(this).attr('href');
+					 //get reference to old image
+					 var oldImage = $('#lightbox img');
+
+						 //create HTML for new image
+						 var newImage = $('<img src="' + imgPath + '">');
+						 //make new image invisible
+						 newImage.hide();
+						 //add to the #photo div
+						 $('#lightbox').prepend(newImage);
+						 //fade in new image
+						 newImage.fadeIn(1000);
+
+						 //fade out old image and remove from DOM
+						 oldImage.fadeOut(1000,function(){
+							 $(this).remove();
+							});
+				});
+
+				// hide overlay
+				$("#overlay").click(function(){
+						$('#overlay').hide('slide', {
+							direction: 'left'
+						},
+						700,
+						"linear");
+				});
+
+				// dont close overlay when clicking arrows and image in lightbox
+				$(".stop").click(function(e){
+					e.stopPropagation();
+				});
+
+
+
+
+        </script>
+	</body>
+</html>
